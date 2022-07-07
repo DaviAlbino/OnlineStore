@@ -20,7 +20,8 @@ class Home extends React.Component {
 
   getSearchApi = async () => {
     const { searchInput } = this.state;
-    // const data = await getProductsFromCategoryAndQuery(searchInput);
+    const data = await getProductsFromCategoryAndQuery(searchInput);
+    return data;
   }
 
   getListCategories= async () => {
@@ -44,7 +45,7 @@ class Home extends React.Component {
           </label>
         ))}
         <div>
-        <input
+          <input
             type="text"
             name="searchInput"
             placeholder=""
@@ -54,7 +55,7 @@ class Home extends React.Component {
           />
         </div>
         <div data-testid="home-initial-message">
-        <button type="button" data-testid="query-button">Pesquisar</button>
+          <button type="button" data-testid="query-button">Pesquisar</button>
           <h4>
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h4>
