@@ -32,6 +32,11 @@ getListCategories= async () => {
   console.log(categories);
 }
 
+searchCategories = async ({ target }) => {
+  const listProducts = await getProductsFromCategoryAndQuery(target.id, undefined);
+  this.setState({ apiValues: listProducts.results, search: true });
+}
+
 render() {
   const { allCategories, searchInput, apiValues, search } = this.state;
   return (
@@ -43,6 +48,7 @@ render() {
             type="radio"
             name="category"
             id={ category.id }
+            onClick={ this.searchCategories }
           />
         </label>
       ))}
