@@ -21,3 +21,9 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
   // Implemente aqui! Quando o fizer, descomente os parâmetros que essa função recebe
   return result;
 }
+
+export async function getProducts(id) {
+  const response = await fetch(`https://api.mercadolibre.com/items/${id}`);
+  const result = await response.json();
+  return result;
+}

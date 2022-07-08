@@ -77,11 +77,21 @@ render() {
       </div>
       {(search && apiValues.length === 0) && <p>Nenhum produto foi encontrado</p>}
       {apiValues && apiValues.map((product) => (
-        <div data-testid="product" key={ product.id }>
-          <p>{product.title}</p>
-          <img src={ product.thumbnail } alt={ product.title } />
-          <p>{product.price}</p>
-        </div>
+        <Link
+          to={ `/details/${product.id}` }
+          /* params={ { id: product.id } } */
+          data-testid="product-detail-link"
+          key={ product.id }
+        >
+          {/* <ProductDetails
+            product={ product }
+          /> */}
+          <div data-testid="product">
+            <p>{product.title}</p>
+            <img src={ product.thumbnail } alt={ product.title } />
+            <p>{product.price}</p>
+          </div>
+        </Link>
       ))}
       <Link to="/cart" data-testid="shopping-cart-button">Carrinho de Compras</Link>
     </div>
