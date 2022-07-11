@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 
@@ -8,6 +9,7 @@ state = {
   searchInput: '',
   apiValues: [],
   search: false,
+//  cart: [],
 }
 
 componentDidMount() {
@@ -29,7 +31,7 @@ getSearchApi = async () => {
 getListCategories= async () => {
   const categories = await getCategories();
   this.setState({ allCategories: categories });
-  console.log(categories);
+  // console.log(categories);
 }
 
 searchCategories = async ({ target }) => {
@@ -39,6 +41,7 @@ searchCategories = async ({ target }) => {
 
 render() {
   const { allCategories, searchInput, apiValues, search } = this.state;
+  const { addCart } = this.props;
   return (
     <div>
       {allCategories && allCategories.map((category) => (
@@ -71,32 +74,47 @@ render() {
           Pesquisar
 
         </button>
+        <br />
+        <Link to="/cart" data-testid="shopping-cart-button">Carrinho de Compras</Link>
+        <br />
         <h4>
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h4>
       </div>
+
       {(search && apiValues.length === 0) && <p>Nenhum produto foi encontrado</p>}
       {apiValues && apiValues.map((product) => (
-        <Link
-          to={ `/details/${product.id}` }
-          /* params={ { id: product.id } } */
-          data-testid="product-detail-link"
-          key={ product.id }
-        >
-          {/* <ProductDetails
-            product={ product }
-          /> */}
-          <div data-testid="product">
-            <p>{product.title}</p>
-            <img src={ product.thumbnail } alt={ product.title } />
-            <p>{product.price}</p>
-          </div>
-        </Link>
+        <div key={ product.id }>
+          <Link
+            to={ `/details/${product.id}` }
+            data-testid="product-detail-link"
+          >
+            <div data-testid="product">
+              <p>{product.title}</p>
+              <img src={ product.thumbnail } alt={ product.title } />
+              <p>{product.price}</p>
+
+            </div>
+          </Link>
+
+          <button
+            type="button"
+            id={ product.id }
+            data-testid="product-add-to-cart"
+            onClick={ addCart }
+          >
+            Adicionar ao Carrinho
+          </button>
+        </div>
       ))}
-      <Link to="/cart" data-testid="shopping-cart-button">Carrinho de Compras</Link>
+
     </div>
   );
 }
 }
+
+Home.propTypes = {
+  addCart: PropTypes.function,
+}.isRequired;
 
 export default Home;
