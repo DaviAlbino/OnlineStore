@@ -30,7 +30,7 @@ getSearchApi = async () => {
 getListCategories= async () => {
   const categories = await getCategories();
   this.setState({ allCategories: categories });
-  console.log(categories);
+  // console.log(categories);
 }
 
 searchCategories = async ({ target }) => {
@@ -41,6 +41,7 @@ searchCategories = async ({ target }) => {
 addCart=({ target }) => {
   const { cart } = this.state;
   this.setState((previous) => ({ cart: [target.id, ...previous.cart] }));
+  // const storageItems = JSON.stringify(cart);
   localStorage.setItem('Cart', JSON.stringify(cart));
 }
 
@@ -78,17 +79,20 @@ render() {
           Pesquisar
 
         </button>
+        <br />
+        <Link to="/cart" data-testid="shopping-cart-button">Carrinho de Compras</Link>
+        <br />
         <h4>
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h4>
       </div>
+
       {(search && apiValues.length === 0) && <p>Nenhum produto foi encontrado</p>}
       {apiValues && apiValues.map((product) => (
-        <>
+        <div key={ product.id }>
           <Link
             to={ `/details/${product.id}` }
             data-testid="product-detail-link"
-            key={ product.id }
           >
             <div data-testid="product">
               <p>{product.title}</p>
@@ -97,6 +101,7 @@ render() {
 
             </div>
           </Link>
+
           <button
             type="button"
             id={ product.id }
@@ -105,9 +110,9 @@ render() {
           >
             Adicionar ao Carrinho
           </button>
-        </>
+        </div>
       ))}
-      <Link to="/cart" data-testid="shopping-cart-button">Carrinho de Compras</Link>
+
     </div>
   );
 }

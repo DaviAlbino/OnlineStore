@@ -6,6 +6,10 @@ import Home from './Components/Home';
 import ProductDetails from './Components/ProductDetails';
 
 function App() {
+  state = {
+    buyItems: [],
+  };
+
   return (
     <div className="App">
       <BrowserRouter>
