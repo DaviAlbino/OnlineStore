@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 
@@ -37,13 +38,6 @@ searchCategories = async ({ target }) => {
   const listProducts = await getProductsFromCategoryAndQuery(target.id, undefined);
   this.setState({ apiValues: listProducts.results, search: true });
 }
-
-// addCart=({ target }) => {
-//   const { cart } = this.state;
-//   this.setState((previous) => ({ cart: [target.id, ...previous.cart] }));
-//   // const storageItems = JSON.stringify(cart);
-//   localStorage.setItem('Cart', JSON.stringify(cart));
-// }
 
 render() {
   const { allCategories, searchInput, apiValues, search } = this.state;
@@ -118,5 +112,9 @@ render() {
   );
 }
 }
+
+Home.propTypes = {
+  addCart: PropTypes.function,
+}.isRequired;
 
 export default Home;

@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { getProducts } from '../services/api';
 
 class Cart extends React.Component {
   state = {
     buyItems: [],
-    // qtdItems: {},
   }
 
   componentDidMount() {
@@ -12,13 +12,8 @@ class Cart extends React.Component {
   }
 
   getCartProducts= () => {
-    // const cartItems = JSON.parse(localStorage.getItem('Cart'));
-    // cartItems.map(async (Id) => {
-    //   const Item = await getProducts(Id);
-    //   this.setState((previous) => ({ buyItems: [Item, ...previous.buyItems] }));
-    // });
     const { cart } = this.props;
-    const cartItems = cart;// JSON.parse(localStorage.getItem('Cart'));
+    const cartItems = cart;
     const counts = {};
     cartItems.forEach((x) => { counts[x] = (counts[x] || 0) + 1; });
     console.log(Object.entries(counts));
@@ -56,5 +51,9 @@ class Cart extends React.Component {
     );
   }
 }
+
+Cart.propTypes = {
+  cart: PropTypes.array,
+}.isRequired;
 
 export default Cart;

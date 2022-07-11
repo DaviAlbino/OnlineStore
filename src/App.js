@@ -7,7 +7,6 @@ import ProductDetails from './Components/ProductDetails';
 
 class App extends React.Component {
   state = {
-    buyItems: [],
     cart: [],
   };
 
@@ -24,8 +23,6 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <Switch>
-            {/* <Route exact path="/users" render={ () => <Users greetingMessage="Good  */}
-
             <Route path="/" exact render={ () => <Home addCart={ this.addCart } /> } />
             <Route
               path="/cart"
