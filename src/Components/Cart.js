@@ -17,7 +17,8 @@ class Cart extends React.Component {
     //   const Item = await getProducts(Id);
     //   this.setState((previous) => ({ buyItems: [Item, ...previous.buyItems] }));
     // });
-    const cartItems = JSON.parse(localStorage.getItem('Cart'));
+    const { cart } = this.props;
+    const cartItems = cart;// JSON.parse(localStorage.getItem('Cart'));
     const counts = {};
     cartItems.forEach((x) => { counts[x] = (counts[x] || 0) + 1; });
     console.log(Object.entries(counts));

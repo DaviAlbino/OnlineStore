@@ -8,7 +8,7 @@ state = {
   searchInput: '',
   apiValues: [],
   search: false,
-  cart: [],
+//  cart: [],
 }
 
 componentDidMount() {
@@ -38,15 +38,16 @@ searchCategories = async ({ target }) => {
   this.setState({ apiValues: listProducts.results, search: true });
 }
 
-addCart=({ target }) => {
-  const { cart } = this.state;
-  this.setState((previous) => ({ cart: [target.id, ...previous.cart] }));
-  // const storageItems = JSON.stringify(cart);
-  localStorage.setItem('Cart', JSON.stringify(cart));
-}
+// addCart=({ target }) => {
+//   const { cart } = this.state;
+//   this.setState((previous) => ({ cart: [target.id, ...previous.cart] }));
+//   // const storageItems = JSON.stringify(cart);
+//   localStorage.setItem('Cart', JSON.stringify(cart));
+// }
 
 render() {
   const { allCategories, searchInput, apiValues, search } = this.state;
+  const { addCart } = this.props;
   return (
     <div>
       {allCategories && allCategories.map((category) => (
@@ -106,7 +107,7 @@ render() {
             type="button"
             id={ product.id }
             data-testid="product-add-to-cart"
-            onClick={ this.addCart }
+            onClick={ addCart }
           >
             Adicionar ao Carrinho
           </button>
