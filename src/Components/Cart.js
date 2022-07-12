@@ -1,38 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getProducts } from '../services/api';
 
 class Cart extends React.Component {
-  state = {
-    buyItems: [],
-  }
-
-  componentDidMount() {
-    this.getCartProducts();
-  }
-
-  getCartProducts= () => {
-    const { cart } = this.props;
-    const cartItems = cart;
-    const counts = {};
-    cartItems.forEach((x) => { counts[x] = (counts[x] || 0) + 1; });
-    console.log(Object.entries(counts));
-    const const2 = Object.entries(counts);
-    cartItems.map(async (Id) => {
-      const Item = await getProducts(Id);
-      const equalItems = const2.filter((item) => item[0] === Item.id);
-      const itemCart = {
-        id: Item.id,
-        title: Item.title,
-        price: Item.price,
-        qtd: equalItems[0][1],
-      };
-      this.setState((previous) => ({ buyItems: [itemCart, ...previous.buyItems] }));
-    });
-  }
-
   render() {
-    const { buyItems } = this.state;
+    const { buyItems, addCart, removeCart } = this.props;
+
     return (
       <div>
         <div data-testid="shopping-cart-empty-message">
@@ -41,8 +13,24 @@ class Cart extends React.Component {
             <div data-testid="product" key={ product.id && array }>
               <p data-testid="shopping-cart-product-name">{product.title}</p>
               <p>{product.price}</p>
+              <button
+                type="button"
+                id={ product.id }
+                data-testid="product-increase-quantity"
+                onClick={ addCart }
+              >
+                +
+              </button>
               <p data-testid="shopping-cart-product-quantity">
                 { product.qtd }
+                <button
+                  type="button"
+                  id={ product.id }
+                  data-testid="product-decrease-quantity"
+                  onClick={ removeCart }
+                >
+                  -
+                </button>
               </p>
             </div>
           ))}
